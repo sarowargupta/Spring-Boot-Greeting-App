@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("greeting")
@@ -64,6 +65,14 @@ public class GreetingController {
             @RequestParam(required = false) String firstName,
             @RequestParam(required = false) String lastName) {
         return greetingService.saveGreeting(firstName, lastName);
+    }
+
+    //UC-05 find a greeting message by id in the repository
+
+    //  Find a greeting by ID
+    @GetMapping("/{id}")
+    public Optional<Greeting> getGreetingById(@PathVariable Long id) {
+        return greetingService.getGreetingById(id);
     }
 
 }
