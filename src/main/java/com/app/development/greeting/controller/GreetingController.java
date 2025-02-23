@@ -2,6 +2,7 @@ package com.app.development.greeting.controller;
 import com.app.development.greeting.model.Greeting;
 import com.app.development.greeting.service.GreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -79,6 +80,18 @@ public class GreetingController {
     @GetMapping("/all")
     public List<Greeting> getAllGreetings() {
         return greetingService.getAllGreetings();
+    }
+
+    //UC-07 Edit a Greeting message in the repository
+
+    // Update a greeting by ID
+    @PutMapping("/{id}")
+    public ResponseEntity<Greeting> updateGreeting(@PathVariable Long id, @RequestParam String message) {
+        Optional<Greeting> updatedGreeting = greetingService.updateGreeting(id, message);
+
+        return updatedGreeting
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build()); // Return empty if not found
     }
 
 }

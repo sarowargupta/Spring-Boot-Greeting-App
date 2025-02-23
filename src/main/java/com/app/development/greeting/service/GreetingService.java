@@ -41,7 +41,7 @@ public class GreetingService {
 
     // Save greeting based on user input
     public Greeting saveGreeting(String firstName, String lastName) {
-        String message= getGreetingMessage(firstName,lastName);
+        String message = getGreetingMessage(firstName, lastName);
 
         // Save greeting message to DB
         Greeting greeting = new Greeting(message);
@@ -60,4 +60,21 @@ public class GreetingService {
         return greetingRepository.findAll();
     }
 
+
+    //UC-07 Edit a Greeting message in the repository
+
+    // Update an existing greeting by ID
+    public Optional<Greeting> updateGreeting(Long id, String newMessage) {
+        Optional<Greeting> existingGreeting = greetingRepository.findById(id);
+
+        if (existingGreeting.isPresent()) {
+            Greeting greeting = existingGreeting.get();
+            greeting.setMessage(newMessage);
+            // Save updated greeting
+            return Optional.of(greetingRepository.save(greeting));
+        }
+
+        return Optional.empty(); // Return empty if ID not found
+
+    }
 }
