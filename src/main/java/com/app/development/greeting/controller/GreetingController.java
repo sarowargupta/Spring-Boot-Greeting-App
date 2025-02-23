@@ -1,7 +1,6 @@
 package com.app.development.greeting.controller;
 import com.app.development.greeting.model.Greeting;
 import com.app.development.greeting.service.GreetingService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -92,6 +91,18 @@ public class GreetingController {
         return updatedGreeting
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build()); // Return empty if not found
+    }
+
+    //UC-08 Delete  a greeting message in the repository
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteGreeting(@PathVariable Long id) {
+        boolean isDeleted = greetingService.deleteGreeting(id);
+        if (isDeleted) {
+            return ResponseEntity.ok("Greeting with ID " + id + " deleted successfully.");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

@@ -77,4 +77,17 @@ public class GreetingService {
         return Optional.empty(); // Return empty if ID not found
 
     }
+
+    //UC-08 Delete  a greeting message in the repository
+
+    // Delete a greeting by ID
+    public boolean deleteGreeting(Long id) {
+        Optional<Greeting> greeting = greetingRepository.findById(id);
+        if (greeting.isPresent()) {
+            greetingRepository.deleteById(id);
+            return true;
+        }
+        return false; // Return false if the ID is not found
+    }
+
 }
