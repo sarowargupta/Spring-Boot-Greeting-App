@@ -1,5 +1,6 @@
 package com.app.development.greeting.model;
 
+//greeting class
 public class Greeting {
     private String message;
 

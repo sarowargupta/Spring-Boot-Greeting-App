@@ -1,5 +1,6 @@
 package com.app.development.greeting.controller;
 import com.app.development.greeting.model.Greeting;
+import com.app.development.greeting.service.GreetingService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,6 +27,19 @@ public class GreetingController {
     @DeleteMapping("/greet")
     public Greeting deleteGreeting() {
         return new Greeting("Hello, DELETE! Resource removed.");
+    }
+
+    //UC-02 Service Layer to get simple Greeting message
+
+    private final GreetingService greetingService;
+
+    public GreetingController(GreetingService greetingService) {
+        this.greetingService = greetingService;
+    }
+
+    @GetMapping("/hello")
+    public Greeting getGreeting() {
+        return new Greeting(greetingService.getGreetingMessage());
     }
 
 }
