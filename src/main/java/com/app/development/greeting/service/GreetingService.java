@@ -1,6 +1,10 @@
 package com.app.development.greeting.service;
 
+import com.app.development.greeting.model.Greeting;
+import com.app.development.greeting.repository.GreetingRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class GreetingService {
@@ -24,4 +28,24 @@ public class GreetingService {
             return "Hello World!";
         }
     }
+
+    //UC-04 Save the greeting message in the repository
+
+    private final GreetingRepository greetingRepository;
+
+    //  Constructor Injection
+    public GreetingService(GreetingRepository greetingRepository) {
+        this.greetingRepository = greetingRepository;
+    }
+
+    // Save greeting based on user input
+    public Greeting saveGreeting(String firstName, String lastName) {
+        String message= getGreetingMessage(firstName,lastName);
+
+        // Save greeting message to DB
+        Greeting greeting = new Greeting(message);
+        return greetingRepository.save(greeting);
+
+    }
+
 }

@@ -1,7 +1,10 @@
 package com.app.development.greeting.controller;
 import com.app.development.greeting.model.Greeting;
 import com.app.development.greeting.service.GreetingService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("greeting")
@@ -52,6 +55,15 @@ public class GreetingController {
 
         String message = greetingService.getGreetingMessage(firstName, lastName);
         return new Greeting(message);
+    }
+
+    //UC-04 Save the greeting message in the repository
+
+    @PostMapping("/query")
+    public Greeting saveGreeting(
+            @RequestParam(required = false) String firstName,
+            @RequestParam(required = false) String lastName) {
+        return greetingService.saveGreeting(firstName, lastName);
     }
 
 }
