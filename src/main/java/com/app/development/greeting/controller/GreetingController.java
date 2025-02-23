@@ -42,4 +42,16 @@ public class GreetingController {
         return new Greeting(greetingService.getGreetingMessage());
     }
 
+    //UC-03 Ability for the Greeting App to give Greeting message
+    //with user first name and last name
+
+    @GetMapping("/hi")
+    public Greeting getGreeting(
+            @RequestParam(required = false) String firstName,
+            @RequestParam(required = false) String lastName) {
+
+        String message = greetingService.getGreetingMessage(firstName, lastName);
+        return new Greeting(message);
+    }
+
 }
