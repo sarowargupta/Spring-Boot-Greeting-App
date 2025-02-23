@@ -75,4 +75,10 @@ public class GreetingController {
         return greetingService.getGreetingById(id);
     }
 
+    //UC-06 List all the greeting messages in the repository
+    @GetMapping("/all")
+    public List<Greeting> getAllGreetings() {
+        return greetingService.getAllGreetings();
+    }
+
 }
